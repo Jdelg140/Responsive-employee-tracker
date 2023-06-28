@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS course_db;
-CREATE DATABASE course_db;
+DROP DATABASE IF EXISTS positions_db;
+CREATE DATABASE positions_db;
 
-USE course_db;
+USE positions_db;
 
 CREATE TABLE departments (
   department_id INT PRIMARY KEY AUTO_INCREMENT,
