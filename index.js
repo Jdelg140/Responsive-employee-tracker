@@ -1,4 +1,5 @@
 const inquirer = require("inquirer")
+const connection = require('./connections.js');
 const { viewAllEmployees, addEmployee, viewAllRoles, viewAllDepartments, addRole, addDepartment, updateEmployee } = require("./queries.js")
 
 function menu() {
@@ -9,12 +10,12 @@ function menu() {
             name: "choice",
             choices: [
                 "View All Employees",
-                "View All Employee Roles",
-                "View all Employees By Deparments",
-                "Update Employee",
-                "Add Employee",
+                "View All Roles",
+                "View all Departments",
                 "Add Role",
-                "Add Department"
+                "Add Employee",
+                "Add Department",
+                "Update Employee" 
             ]
         }
     ])
@@ -25,13 +26,13 @@ function menu() {
                 case 'View All Employees':
                     viewAllEmployees();
                     break;
-                case 'View All Employee Roles':
+                case 'View All Roles':
                     viewAllRoles();
                     break;
-                case 'View all Employees By Deparments':
+                case 'View all Departments':
                     viewAllDepartments();
                     break;
-                case 'Add role':
+                case 'Add Role':
                     addRole();
                     break;
                 case 'Add Employee':

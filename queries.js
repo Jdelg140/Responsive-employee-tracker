@@ -115,19 +115,9 @@ function addEmployee() {
 function addRole() {
     inquirer.prompt([
         {
-            type: "list",
+            type: "input",
             message: "Enter title of role",
             name: "role_title",
-            choices:[
-                "Full Stack Developer",
-                "Software Engineer",
-                "Accountant",
-                "Financial Anylyst",
-                "Marketing Coordinator",
-                "Sales Lead",
-                "Project Manager",
-                "Operations Manager"
-            ]
         },
         {
             type: "input",
@@ -137,7 +127,7 @@ function addRole() {
         {
             type: "input",
             message: "Enter the id # for the department",
-            name: "department_id"
+            name: "department_id",
         },
 
     ]).then(answers => {
@@ -153,7 +143,7 @@ function addRole() {
                 console.error(err.message);
                 return;
             }
-                console.log("Role successfully added to list of roles!");
+                console.log("Role successfully added!");
                 
         });
     });
@@ -164,7 +154,7 @@ function addRole() {
 function addDepartment() {
     inquirer.prompt([
         {
-            type: "list",
+            type: "input",
             message: "type the name of the department",
             name: "department_name"
         },
@@ -180,40 +170,84 @@ function addDepartment() {
                 console.error(err.message);
                 return;
             }
-                console.log("Employee successfully added to list of employees!");
+                console.log("Department successfully added!");
                 
         });
     });
  
 };
 
-function updateEmployee(){
-    inquirer.prompt([
-        {
-            type: "list",
-            message: "type the name of the department",
-            name: "department_name"
-        },
-    
-    ]).then(answers => {
-        const {department_name} = answers
-        const department = {
-            department_name: department_name,
+
+const updateEmployee = () => {
+    db.query('SELECT * FROM employees', (err, employees) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      employees = employees.map((employee) => {
+        return {
+          name: `${employee.first_name} ${employee.last_name}`,
+          value: employee.employee_id,
+        };
+      });
+  
+      db.query('SELECT * FROM roles', (err, roles) => {
+        if (err) {
+          console.log(err);
+          return;
         }
-
-        db.query("INSERT INTO departments SET ?", department, (err, res) => {
-            if (err) {
-                console.error(err.message);
-                return;
-            }
-                console.log("Employee successfully added to list of employees!");
-                
+        roles = roles.map((role) => {
+          return {
+            name: role.role_title,
+            value: role.role_id,
+          };
         });
+  
+        inquirer
+          .prompt([
+            {
+              type: 'list',
+              name: 'selectEmployee',
+              message: 'Select employee to update...',
+              choices: employees,
+            },
+            {
+              type: 'list',
+              name: 'selectNewRole',
+              message: 'Select new employee role...',
+              choices: roles,
+            },
+          ])
+          .then((data) => {
+            const selectedRole = roles.find((role) => role.value === data.selectNewRole);
+            const roleTitle = selectedRole.name;
+  
+            db.query(
+              'UPDATE employees SET ?, ? WHERE ?',
+              [
+                {
+                  role_id: data.selectNewRole,
+                },
+                {
+                  role_title: roleTitle,
+                },
+                {
+                  employee_id: data.selectEmployee,
+                },
+              ],
+              function (err) {
+                if (err) {
+                  console.log(err);
+                  return;
+                }
+                console.log('Employee role updated');
+              }
+            );
+          });
+      });
     });
-}
-
-
-
+  };
+  
 module.exports = {
     viewAllEmployees, viewAllRoles, viewAllDepartments, addEmployee, addRole, addDepartment,updateEmployee
 }

@@ -17,13 +17,13 @@ VALUES
 ('Project Manager', 100000, 4),
 ('Operations Manager', 90000, 4);
 
-INSERT INTO employees (first_name, last_name, department_name, role_title, manager_id, role_salary)
+INSERT INTO employees (first_name, last_name, department_name, role_title, role_id, manager_id, role_salary)
 VALUES 
-('Mark', 'Miller',"IT", 'Full Stack Developer', NULL,80000),
-('Mary','Brown',"IT",'Software Engineer', 1,120000),
-('Ashley', 'Jones','Finance & Accounting', 'Accountant', 3,100000),
-('Devin', 'Anderson','Finance & Accounting','Financial Analyst', NULL,150000),
-('Ana', 'Sanchez','Sales & Marketing','Marketing Coordinator', 5,70000),
-('Tyler', 'Moore', 'Sales & Marketing','Sales Lead', NULL,90000),
-('Lewis', 'Allen','Operations','Project Manager', NULL,100000),
-('Katherine', 'Green','Operations','Operations Manager', 7,90000);
+('Mark', 'Miller',"IT", 'Full Stack Developer', 1, NULL, 80000),
+('Mary','Brown',"IT",'Software Engineer', 2, 1, 120000),
+('Ashley', 'Jones','Finance & Accounting', 'Accountant', 3, 3, 100000),
+('Devin', 'Anderson','Finance & Accounting','Financial Analyst', 4, NULL, 150000),
+('Ana', 'Sanchez','Sales & Marketing','Marketing Coordinator', 5, 5, 70000),
+('Tyler', 'Moore', 'Sales & Marketing','Sales Lead', 6, NULL, 90000),
+('Lewis', 'Allen','Operations','Project Manager', 7, NULL, 100000),
+('Katherine', 'Green','Operations','Operations Manager', 8, 7, 90000);
