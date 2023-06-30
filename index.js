@@ -1,5 +1,5 @@
 const inquirer = require("inquirer")
-const { viewAllEmployees, addEmployee, viewAllRoles, viewAllDepartments, addRole, addDepartment } = require("./queries.js")
+const { viewAllEmployees, addEmployee, viewAllRoles, viewAllDepartments, addRole, addDepartment, updateEmployee } = require("./queries.js")
 
 function menu() {
     inquirer.prompt([
@@ -23,51 +23,26 @@ function menu() {
             const selectedOption = answers.choice;
             switch (selectedOption) {
                 case 'View All Employees':
-                    viewAllEmployees()
+                    viewAllEmployees();
                     break;
                 case 'View All Employee Roles':
-                    viewAllRoles()
+                    viewAllRoles();
                     break;
                 case 'View all Employees By Deparments':
-                    viewAllDepartments()
-                    break;
-                case 'Update Employee':
-                    updateEmployee()
+                    viewAllDepartments();
                     break;
                 case 'Add role':
-                    addRole()
+                    addRole();
                     break;
                 case 'Add Employee':
-                    inquirer.prompt([{
-                        type: "input",
-                        message: "Type employee's first name",
-                        name: "addEmployeeFirst"
-                    },
-                    {
-                        type: "input",
-                        message: "Type employee's last name",
-                        name: "addEmployeeLast"
-                    },
-                    {
-                        type: "input",
-                        message: "Type employee's role id #",
-                        name: "addEmployeeid1"
-                    },
-                    { //Add choice for user to choose if the employee has a manager id or not
-                        type: "input",
-                        message: "Type employee's manager id (if applicable)",
-                        name: "addEmployeeid2"
-                    }
-
-
-                    ]).then(answers => {
-                        addEmployee(answers).then(res => {
-                            menu();
-                        })
-                    })
+                    addEmployee();
                     break;
                 case 'Add Department':
-                    addDepartment()
+                    addDepartment();
+                    break;
+
+                case 'Update Employee':
+                    updateEmployee();
                     break;
                 case 'Exit':
 
@@ -81,5 +56,7 @@ function menu() {
 
 
 menu();
+
+
 
 

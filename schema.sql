@@ -20,8 +20,9 @@ CREATE TABLE employees (
   employee_id INT PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  role_id INT,
+  department_name VARCHAR(30),
+  role_title VARCHAR(30),
   manager_id INT,
-  FOREIGN KEY (role_id) REFERENCES roles(role_id),
+  role_salary DECIMAL,
   FOREIGN KEY (manager_id) REFERENCES employees(employee_id)
 );
